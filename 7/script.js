@@ -97,10 +97,59 @@ const getSize = (dir) => {
   return size;
 };
 
-const run = () => {
-  getSize("/");
+const addSize = (map, key, size) => {
+  if (!map.has(key)) map.set(key, 0);
+  map.set(key, map.get(key) + size);
+};
 
-  return [...processedDirs.values()].filter(x => x <= 100000).reduce((sum, v) => sum + v, 0);
+const getSizes = () => {
+  let dir = "";
+  commands.forEach(cmd => {
+    // console.log("Dir...", dir, "cmd", cmd);
+    // Just skip "$ ls" lines
+    if (cmd === "$ ls") return;
+
+    if (cmd.startsWith("$ cd")) {
+      if (cmd === "$ cd ..") {
+        const dirs = dir.split("#");
+        dirs.pop();
+        dir = dirs.join("#");
+      } else {
+        const d = cmd.split(" ").at(-1);
+        dir += `#${d}`
+      }
+    } else {
+      if (cmd.startsWith("dir")) {
+        // Do nothing
+      } else {
+        // Add value to ALL ancestor dirs
+        const val = +cmd.split(" ")[0];
+        const dirs = dir.split("#").filter(x => x);
+
+        while (dirs.length > 0) {
+          addSize(processedDirs, dirs.join("#"), val);
+          dirs.pop();
+        }
+      }
+    }
+  });
+};
+
+const run = () => {
+  // getSize("/");
+
+  getSizes();
+
+  // PART ONE
+  // return [...processedDirs.values()].filter(x => x <= 100000).reduce((sum, v) => sum + v, 0);
+
+
+  const totalUnused = 70000000 - processedDirs.get("/");
+  console.log("total size", totalUnused);
+
+
+  // PART TWO
+  return [...processedDirs.values()].sort((a, b) => a - b).filter(x => totalUnused + x >= 30000000)[0];
 };
 
 console.time('run');
