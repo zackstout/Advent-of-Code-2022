@@ -63,6 +63,8 @@ $ ls
  */
 
 /**
+ * This would only work if all dirs had unique names.
+ * 
  * Take name of dir. Find where we cd {dir} && ls.
  * Next lines
  */
@@ -70,32 +72,32 @@ $ ls
 // const allSizes = [];
 const processedDirs = new Map();
 
-const getSize = (dir) => {
-  if (processedDirs.has(dir)) return processedDirs.get(dir);
+// const getSize = (dir) => {
+//   if (processedDirs.has(dir)) return processedDirs.get(dir);
 
-  const i = commands.findIndex(x => x === `$ cd ${dir}`);
-  const i2 = commands.slice(i + 1).findIndex(x => x.startsWith("$ cd"));
-  // console.log(dir, i, i2);
-  const contents = i2 === -1 ? commands.slice(i + 2) : commands.slice(i + 2, i + i2 + 1);
-  // console.log(contents);
-  // return contents;
-  let size = 0;
-  contents.forEach(c => {
-    if (c.startsWith("dir")) {
-      // console.log("new dir is", c.split(' ')[1])
-      size += getSize(c.split(" ")[1]);
-    } else {
-      const n = +c.match(/(\d+)/)[0];
-      // console.log(n);
-      size += n;
-    }
-  });
+//   const i = commands.findIndex(x => x === `$ cd ${dir}`);
+//   const i2 = commands.slice(i + 1).findIndex(x => x.startsWith("$ cd"));
+//   // console.log(dir, i, i2);
+//   const contents = i2 === -1 ? commands.slice(i + 2) : commands.slice(i + 2, i + i2 + 1);
+//   // console.log(contents);
+//   // return contents;
+//   let size = 0;
+//   contents.forEach(c => {
+//     if (c.startsWith("dir")) {
+//       // console.log("new dir is", c.split(' ')[1])
+//       size += getSize(c.split(" ")[1]);
+//     } else {
+//       const n = +c.match(/(\d+)/)[0];
+//       // console.log(n);
+//       size += n;
+//     }
+//   });
 
-  // console.log(`Size of ${dir} is ${size}`);
-  // allSizes.push(size);
-  processedDirs.set(dir, size);
-  return size;
-};
+//   // console.log(`Size of ${dir} is ${size}`);
+//   // allSizes.push(size);
+//   processedDirs.set(dir, size);
+//   return size;
+// };
 
 const addSize = (map, key, size) => {
   if (!map.has(key)) map.set(key, 0);
@@ -144,11 +146,9 @@ const run = () => {
   // return [...processedDirs.values()].filter(x => x <= 100000).reduce((sum, v) => sum + v, 0);
 
 
+  // PART TWO
   const totalUnused = 70000000 - processedDirs.get("/");
   console.log("total size", totalUnused);
-
-
-  // PART TWO
   return [...processedDirs.values()].sort((a, b) => a - b).filter(x => totalUnused + x >= 30000000)[0];
 };
 
