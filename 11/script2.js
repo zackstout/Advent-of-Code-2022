@@ -51,27 +51,36 @@ const parseInput = (lines) => {
 };
 
 const run = () => {
-    const monkeys = parseInput(testLines).map(m => ({ ...m, actions: 0 }));
+    const monkeys = parseInput(lines).map(m => ({ ...m, actions: 0 }));
     console.log("Monkeys", monkeys);
 
-    const numRounds = 20;
+
+    /**
+     * ahhhhhh nice! So the issue is that the numnbers have indeed become "ridiculous"
+     * Computer with "e" values... and then "Infinity".... yeah, ok.
+     * 
+     * Heck yeah. Just need to use (x * y) % z = ((x % z) * (y % z)) % z
+     */
+
+    const numRounds = 10000;
+
+    // const lcm = 13 * 17 * 19 * 23; // Test input
+
+    const lcm = monkeys.map(m => m.test).reduce((prod, v) => prod * v, 1);
+
+    console.log("Lcm", lcm);
 
     for (let i = 0; i < numRounds; i++) {
         monkeys.forEach(monkey => {
 
             while (monkey.items.length > 0) {
                 let v = monkey.items.shift();
-                // TODO: apply OP to v
-                // Ew lol
-                // if (monkey.op === "old * 19") v *= 19;
-                // if (monkey.op === "old + 6") v += 6;
-                // if (monkey.op === "old + 3") v += 3;
                 if (monkey.op === "old * old") {
-                    v *= v;
+                    v = ((v % lcm) * (v % lcm)) % lcm;
                 } else {
                     const val = +monkey.op.match(/\d+/);
                     if (monkey.op.includes("*")) {
-                        v *= val;
+                        v = ((v % lcm) * (val % lcm)) % lcm;
                     } else {
                         v += val;
                     }
@@ -86,7 +95,8 @@ const run = () => {
         });
     }
 
-    return monkeys.sort((a, b) => a.actions - b.actions).map(x => x.actions);;
+    // console.log("Monkeys", monkeys);
+    return monkeys.sort((a, b) => a.actions - b.actions).map(x => x.actions);
 };
 
 console.time('run');
