@@ -48,11 +48,16 @@ const parseInput = lines => {
         });
     });
 
+    const minX = Math.min(...[...grid.keys()].map(k => k.split(",")[0]));
+    const maxX = Math.max(...[...grid.keys()].map(k => k.split(",")[0]));
+    console.log(minX, maxX);
+
+
     // Add the floor to the grid
     const maxY = Math.max(...[...grid.keys()].map(k => k.split(",")[1]));
     const floorHeight = maxY + 2;
 
-    for (let i = -20000; i < 20000; i++) {
+    for (let i = 200; i < 700; i++) {
         const key = `${i},${floorHeight}`;
         grid.set(key, 1);
     }
@@ -105,6 +110,11 @@ const run = () => {
         count++;
     }
 
+    const minX = Math.min(...[...grid.keys()].map(k => k.split(",")[0]));
+    const maxX = Math.max(...[...grid.keys()].map(k => k.split(",")[0]));
+    console.log(minX, maxX);
+
+
     // tbh unsure why we need the plus one here
     return count + 1;
 };
@@ -112,4 +122,3 @@ const run = () => {
 console.time('run');
 console.log(run());
 console.timeEnd('run');
-
