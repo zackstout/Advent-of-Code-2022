@@ -43,3 +43,15 @@ Recursive array sorting.
 
 --- Day 14: Regolith Reservoir ---
 Sand flow.
+
+--- Day 15: Beacon Exclusion Zone ---
+Manhattan distance.
+
+--- Day 16: Proboscidea Volcanium ---
+Valves and pipes.
+
+--- Day 17: Pyroclastic Flow ---
+Tetris!
+
+--- Day 18: Boiling Boulders ---
+3d flood fill
