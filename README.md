@@ -55,3 +55,12 @@ Tetris!
 
 --- Day 18: Boiling Boulders ---
 3d flood fill
+
+--- Day 19: Not Enough Minerals ---
+Operations planning
+
+--- Day 20: Grove Positioning System ---
+Circular list
+
+--- Day 21: Monkey Math ---
+Recursive operations

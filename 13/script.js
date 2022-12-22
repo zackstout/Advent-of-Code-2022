@@ -1,5 +1,5 @@
 
-const { data } = require('./testInput');
+const { data } = require('./input');
 const lines = data.split('\n').map(l => l.trim());
 
 const parse = arr => {
@@ -56,6 +56,8 @@ const isOrdered = (pair) => {
   return 2;
 };
 
+
+// 5642 is too high... though test works
 const run = () => {
   const pairs = parse(lines);
   // console.log("pairs", pairs);
@@ -63,11 +65,6 @@ const run = () => {
 
   pairs.forEach((pair, idx) => {
     if (isOrdered(pair)) {
-      // console.log("Pair is ordered", pair[0].length, pair[1].length, idx + 1);
-      // if (pair[0].length > pair[1].length) {
-      //   console.log("Pair is ordered", pair, idx + 1);
-
-      // }
       sum += (idx + 1);
     }
   });
@@ -82,12 +79,18 @@ const run = () => {
 const runTwo = () => {
   const pairs = parse(lines);
 
-  const x = [...pairs.map(p => p[0]), ...pairs.map(p => p[1])].sort((a, b) => isOrdered([a, b]));
-  console.log(x.slice(0, 5), x.length);
+  const newEls = [[[2]], [[6]]];
+
+  const sorted = [...pairs.map(p => p[0]), ...pairs.map(p => p[1])]
+    .concat(newEls)
+    .sort((a, b) => isOrdered([a, b]) === 1 ? -1 : 1);
+  // console.log(x, x.length);
+
+  const i1 = sorted.findIndex(x => x.toString() === newEls[0].toString());
+  const i2 = sorted.findIndex(x => x.toString() === newEls[1].toString());
+  return (i1 + 1) * (i2 + 1);
 };
 
-
-// 5642 is too high... though test works
 
 console.time('run');
 console.log(runTwo());
