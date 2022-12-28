@@ -37,7 +37,7 @@ const DIRS_DELTAS = {
   W: [[-1, 0], [-1, 1], [-1, -1]],
 };
 
-let DIRS = ["N", "S", "W", "E"];
+const DIRS = ["N", "S", "W", "E"];
 
 const cloneMap = source => new Map(JSON.parse(JSON.stringify(Array.from(source))));
 
@@ -95,7 +95,7 @@ const step = m => {
 
   targets.forEach((value, key) => {
     if (value.length === 1) {
-      // Move it
+      // Move that elf
       result.delete(value[0]);
       result.set(key, 1);
     }
@@ -108,6 +108,7 @@ const step = m => {
 
 const run = () => {
   // console.log(test, parse(test));
+
 
   let m = parse(lines.map(x => x.trim()));
   // let m = parse(test);

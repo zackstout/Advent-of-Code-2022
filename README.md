@@ -64,3 +64,14 @@ Circular list
 
 --- Day 21: Monkey Math ---
 Recursive operations
+
+--- Day 22: Monkey Map ---
+Cube map!
+
+--- Day 23: Unstable Diffusion ---
+Diffusion algorithm
+
+--- Day 24: Blizzard Basin ---
+Path finding.
+
+--- Day 25: Full of Hot Air ---
