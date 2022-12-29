@@ -91,6 +91,8 @@ const run = () => {
     return v;
   }).join("");
 
+
+  // Even though we didn't technically need toDecimal for our solution, it was really crucial to be able to test our answer 
   console.log("Snafu digits sum:", snafuSum, toDecimal(snafuSum));
 
   // console.log(`Total is ${total}.`);
